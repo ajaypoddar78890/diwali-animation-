@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diwali Celebration</title>
 
+    <!-- Link to Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
+
     <style>
         /* Basic styling to make the video full screen */
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -32,13 +36,13 @@
         .content {
             text-align: center;
             font-size: 2rem;
+            font-family: 'Oleo Script', cursive;
             opacity: 0;
             color: transparent;
-            background-clip: text;
-            -webkit-background-clip: text;
-            background-image: linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0);
-            background-size: 200% 100%;
-            animation: gradientShift 5s infinite alternate;
+            animation: gradientShift 5s infinite alternate, focus-in-contract-bck 1.5s ease 5s forwards;
+            position: relative;
+            z-index: 2;
+            /* Ensure content is above the diyas */
         }
 
         .content h1 {
@@ -51,37 +55,113 @@
             margin-top: 10px;
         }
 
+        /* Styling for diya images */
+        .diya {
+            position: absolute;
+            width: 100px;
+            /* Adjust size as needed */
+            height: auto;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+            /* Float animation */
+        }
+
+        .diya.left {
+            left: 20px;
+            /* Position on the left */
+            top: 50%;
+            transform: translateY(-50%);
+            /* Center vertically */
+        }
+
+        .diya.right {
+            right: 20px;
+            /* Position on the right */
+            top: 50%;
+            transform: translateY(-50%);
+            /* Center vertically */
+        }
+
+        /* Gradient animation */
         @keyframes gradientShift {
             0% {
-                background-position: 0% 0%;
+                color: #ff0080;
             }
+
+            50% {
+                color: #ff8c00;
+            }
+
             100% {
-                background-position: 100% 0%;
+                color: #40e0d0;
+            }
+        }
+
+        /* Animista animation for content */
+        @-webkit-keyframes focus-in-contract-bck {
+            0% {
+                letter-spacing: 1em;
+                -webkit-transform: translateZ(300px);
+                transform: translateZ(300px);
+                -webkit-filter: blur(12px);
+                filter: blur(12px);
+                opacity: 0;
+            }
+
+            100% {
+                -webkit-transform: translateZ(12px);
+                transform: translateZ(12px);
+                -webkit-filter: blur(0);
+                filter: blur(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes focus-in-contract-bck {
+            0% {
+                letter-spacing: 1em;
+                transform: translateZ(300px);
+                filter: blur(12px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateZ(12px);
+                filter: blur(0);
+                opacity: 1;
+            }
+        }
+
+        /* Floating animation for diyas */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                /* Start position */
+            }
+
+            50% {
+                transform: translateY(-10px);
+                /* Float up */
+            }
+
+            100% {
+                transform: translateY(0);
+                /* Return to start */
             }
         }
     </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </head>
 
 <body>
     <video src="firework background.mp4" autoplay muted loop></video>
 
+    <!-- Diya images on the left and right -->
+
+
     <div class="content">
         <h1>Happy Diwali!</h1>
         <p>Wishing you a joyous and prosperous celebration</p>
     </div>
-
-    <script>
-        // GSAP animation to fade in content with delay
-        gsap.to(".content", {
-            opacity: 1,
-            delay: 5,
-            duration: 2,
-            y: -20,
-            ease: "power2.out"
-        });
-    </script>
 </body>
 
 </html>
